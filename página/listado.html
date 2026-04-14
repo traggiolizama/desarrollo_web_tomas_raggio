@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Estadísticas Actividades</title>
+        <link rel="stylesheet" href="estilos.css"> 
+    </head>
+    <body>
+        <header>
+            <h1>Listado de miembros: Actividades del DCC</h1>
+            <nav>
+                <a href="portada.html">Inicio</a>
+                <a href="registro.html">Registro</a>
+                <a href="estadísticas.html">Estadísticas</a>
+            </nav>
+        </header>
+        <main>
+            <section class = filtros>
+                <div class = "form-group">
+                    <label for = "filtro-tipo">Filtrar por tipo de miembro</label>
+                    <select id = "filtro-tipo">
+                        <option value = "" >Todos los tipos</option>
+                        <option value = "pregrado" >Pregrado</option>
+                        <option value = "postgrado" >Postgrado</option>
+                        <option value = "funcionario" >Funcionario</option>
+                        <option value = "académico" >Académico</option>
+                    </select>
+                </div>
+                
+                <div class = "form-group">
+                    <label for = "ordenar-por">Ordenar por</label>
+                    <select id = "ordenar-por">
+                        <option value = "" >Sin orden</option>
+                        <option value = "nombre" >Nombre</option>
+                        <option value = "apellido" >Apellido</option>
+                        <option value = "email" >Email</option>
+                    </select>
+                </div>
+            </section>
+
+            <table id = "tabla-miembros">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Tipo de miembro</th>
+                        <th>Tipo de Actividad</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla">
+                </tbody>
+            </table>
+
+            
+            <nav aria-label="Paginación" class="paginacion">
+                <button type="button" id="btn-anterior" class="btn-primario">Anterior</button>
+                <span id="indicador-pagina"></span>
+                <button type="button" id="btn-siguiente" class="btn-primario">Siguiente</button>
+            </nav>
+        </main>
+        <script src="listado.js"></script>
+    </body>
+</html>

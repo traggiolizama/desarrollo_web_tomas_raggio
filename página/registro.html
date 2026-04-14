@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Registro Actividades</title>
+        <link rel="stylesheet" href="estilos.css"> 
+    </head>
+    <body>
+        <header>
+            <h1>Actividades DCC</h1>
+            <nav>
+                <a href="portada.html">Inicio</a>
+                <a href="listado.html">Listado</a>
+                <a href="estadísticas.html">Estadísticas</a>
+            </nav>
+        </header>
+        <main>
+            <h2>Registro</h2>
+            <form id="form-datos" novalidate>
+                <section class="form-section">
+                    <h3>Datos Personales</h3>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                        <span class="error" id="error-nombre"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" required>
+                        <span class="error" id="error-apellido"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error" id="error-email"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Número de teléfono</label>
+                        <input type="tel" id="telefono" name="telefono">
+                        <span class="error" id="error-telefono"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo-miembro">Tipo de miembro</label>
+                        <select id="tipo-miembro" name="tipo-miembro">
+                            <option value="">-- Seleccione --</option>
+                            <option value="pregrado">Estudiante de pregrado</option>
+                            <option value="postgrado">Estudiante de postgrado</option>
+                            <option value="funcionario">Funcionario/a</option>
+                            <option value="academico">Académico/a</option>
+                        </select>
+                        <span class="error" id="error-tipo-miembro"></span>
+                    </div> 
+                </section>
+                <section class="form-section">
+                    <h3>Actividades</h3>
+                    <div class="form-group">
+                        <label for="tipo-actividad">Tipo de actividad</label>
+                        <select id="tipo-actividad" name="tipo-actividad">
+                            <option value="">-- Seleccione --</option>
+                            <option value="deportiva">Deportiva</option>
+                            <option value="artistica">Artística</option>
+                            <option value="tecnologica">Tecnológica</option>
+                            <option value="social">Social</option>
+                            <option value="recreativa">Recreativa</option>
+                        </select>
+                        <span class="error" id="error-tipo-actividad"></span>
+                    </div>
+                    <div class="form-group"></div>
+                        <p>Días en las que lo realiza</p>
+                        <div class="checkbox-group">
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="lunes">Lunes</label>
+                                <div class="horas-oculto" id = "hora-lunes">
+                                    <label for="inicio-lunes">Hora inicio</label>
+                                    <input type="time" name="inicio-lunes" id="inicio-lunes">
+                                    <label for="fin-lunes">Hora término</label>
+                                    <input type="time" name="fin-lunes" id="fin-lunes">
+                                </div>
+                                <span class="error" id="error-hora-lunes"></span>       
+                            </div>
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="martes">Martes</label>
+                                <div class="horas-oculto" id = "hora-martes">
+                                    <label for="inicio-martes">Hora inicio</label>
+                                    <input type="time" name="inicio-martes" id="inicio-martes">
+                                    <label for="fin-martes">Hora término</label>
+                                    <input type="time" name="fin-martes" id="fin-martes">
+                                </div>
+                                <span class="error" id="error-hora-martes"></span>        
+                            </div>
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="miercoles">Miércoles</label>
+                                <div class="horas-oculto" id = "hora-miercoles">
+                                    <label for="inicio-miercoles">Hora inicio</label>
+                                    <input type="time" name="inicio-miercoles" id="inicio-miercoles">
+                                    <label for="fin-miercoles">Hora término</label>
+                                    <input type="time" name="fin-miercoles" id="fin-miercoles">
+                                </div>  
+                                <span class="error" id="error-hora-miercoles"></span>      
+                            </div>
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="jueves">Jueves</label>
+                                <div class="horas-oculto" id = "hora-jueves">
+                                    <label for="inicio-jueves">Hora inicio</label>
+                                    <input type="time" name="inicio-jueves" id="inicio-jueves">
+                                    <label for="fin-jueves">Hora término</label>
+                                    <input type="time" name="fin-jueves" id="fin-jueves">
+                                </div>   
+                                <span class="error" id="error-hora-jueves"></span>     
+                            </div>
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="viernes">Viernes</label>
+                                <div class="horas-oculto" id = "hora-viernes">
+                                    <label for="inicio-viernes">Hora inicio</label>
+                                    <input type="time" name="inicio-viernes" id="inicio-viernes">
+                                    <label for="fin-viernes">Hora término</label>
+                                    <input type="time" name="fin-viernes" id="fin-viernes">
+                                </div>       
+                                <span class="error" id="error-hora-viernes"></span> 
+                            </div>
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="sabado">Sábado</label>
+                                <div class="horas-oculto" id = "hora-sabado">
+                                    <label for="inicio-sabado">Hora inicio</label>
+                                    <input type="time" name="inicio-sabado" id="inicio-sabado">
+                                    <label for="fin-sabado">Hora término</label>
+                                    <input type="time" name="fin-sabado" id="fin-sabado">
+                                </div>        
+                                <span class="error" id="error-hora-sabado"></span>
+                            </div>
+                            <div class="día item">
+                                <label><input type="checkbox" name="dias" value="domingo">Domingo</label>
+                                <div class="horas-oculto" id = "hora-domingo">
+                                    <label for="inicio-domingo">Hora inicio</label>
+                                    <input type="time" name="inicio-domingo" id="inicio-domingo">
+                                    <label for="fin-domingo">Hora término</label>
+                                    <input type="time" name="fin-domingo" id="fin-domingo">
+                                </div>  
+                                <span class="error" id="error-hora-domingo"></span>      
+                            </div>
+                        </div>
+                        <span class="error" id="error-dias"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="archivo-actividad">Foto o video de la actividad</label>
+                        <input type="file" name="archivo-actividad" id="archivo-actividad" accept="image/*,video/*">
+                    </div>
+                    <span class="error" id="error-archivo"></span>
+                    <div class="form-group">
+                        <label for="enlace-actividad">Enlace a contenido de la actividad (redes sociales, página web, etc.)</label>
+                        <input type="url" name="enlace-actividad" id="enlace-actividad">
+                    </div>
+                    <span class="error" id="error-enlace"></span>
+                </section>
+                <button type="button" id="btn-enviar" class="btn-primario">Registrar</button>
+            </form>
+        </main>
+        <script src="validation.js"></script>
+    </body>
+</html>
