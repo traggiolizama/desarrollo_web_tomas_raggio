@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block titulo %}Registro - Actividades DCC{% endblock %}
+
+{% block contenido %}
+<h2>Registro</h2>
+<form id="form-datos" method="POST" action="{{ url_for('registro') }}" enctype="multipart/form-data" novalidate>
+
+  <section class="form-section">
+    <h3>Datos Personales</h3>
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" value="{{ form.get('nombre', '') }}">
+      <span class="error" id="error-nombre">{{ errores.get('nombre', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="apellido">Apellido</label>
+      <input type="text" id="apellido" name="apellido" value="{{ form.get('apellido', '') }}">
+      <span class="error" id="error-apellido">{{ errores.get('apellido', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" value="{{ form.get('email', '') }}">
+      <span class="error" id="error-email">{{ errores.get('email', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Número de teléfono</label>
+      <input type="tel" id="telefono" name="telefono" value="{{ form.get('telefono', '') }}">
+      <span class="error" id="error-telefono">{{ errores.get('telefono', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="tipo-miembro">Tipo de miembro</label>
+      <select id="tipo-miembro" name="tipo-miembro">
+        <option value="">-- Seleccione --</option>
+        <option value="pregrado"    {% if form.get('tipo-miembro') == 'pregrado'    %}selected{% endif %}>Estudiante de pregrado</option>
+        <option value="postgrado"   {% if form.get('tipo-miembro') == 'postgrado'   %}selected{% endif %}>Estudiante de postgrado</option>
+        <option value="funcionario" {% if form.get('tipo-miembro') == 'funcionario' %}selected{% endif %}>Funcionario/a</option>
+        <option value="academico"   {% if form.get('tipo-miembro') == 'academico'   %}selected{% endif %}>Académico/a</option>
+      </select>
+      <span class="error" id="error-tipo-miembro">{{ errores.get('tipo-miembro', '') }}</span>
+    </div>
+
+  </section>
+
+  <section class="form-section">
+    <h3>Actividades</h3>
+
+    <div class="form-group">
+      <label for="tipo-actividad">Tipo de actividad</label>
+      <select id="tipo-actividad" name="tipo-actividad">
+        <option value="">-- Seleccione --</option>
+        <option value="deportiva"   {% if form.get('tipo-actividad') == 'deportiva'   %}selected{% endif %}>Deportiva</option>
+        <option value="artistica"   {% if form.get('tipo-actividad') == 'artistica'   %}selected{% endif %}>Artística</option>
+        <option value="tecnologica" {% if form.get('tipo-actividad') == 'tecnologica' %}selected{% endif %}>Tecnológica</option>
+        <option value="social"      {% if form.get('tipo-actividad') == 'social'      %}selected{% endif %}>Social</option>
+        <option value="recreativa"  {% if form.get('tipo-actividad') == 'recreativa'  %}selected{% endif %}>Recreativa</option>
+      </select>
+      <span class="error" id="error-tipo-actividad">{{ errores.get('tipo-actividad', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="nombre-actividad">Nombre de la actividad</label>
+      <input type="text" id="nombre-actividad" name="nombre-actividad" value="{{ form.get('nombre-actividad', '') }}">
+      <span class="error" id="error-nombre-actividad">{{ errores.get('nombre-actividad', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion-actividad">Descripción</label>
+      <textarea id="descripcion-actividad" name="descripcion-actividad" rows="3">{{ form.get('descripcion-actividad', '') }}</textarea>
+    </div>
+
+    <div class="form-group">
+      <p>Días en los que lo realiza</p>
+      <div class="checkbox-group">
+
+        {% set dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'] %}
+        {% set dias_labels = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] %}
+
+        {% for i in range(dias | length) %}
+          {% set dia = dias[i] %}
+          {% set marcado = dia in (form.getlist('dias') if form else []) %}
+          <div class="día item">
+            <label>
+              <input type="checkbox" name="dias" value="{{ dia }}" {% if marcado %}checked{% endif %}>
+              {{ dias_labels[i] }}
+            </label>
+            <div class="horas-oculto {% if marcado %}visible{% endif %}" id="hora-{{ dia }}">
+              <label for="inicio-{{ dia }}">Hora inicio</label>
+              <input type="time" name="inicio-{{ dia }}" id="inicio-{{ dia }}" value="{{ form.get('inicio-' + dia, '') }}">
+              <label for="fin-{{ dia }}">Hora término</label>
+              <input type="time" name="fin-{{ dia }}" id="fin-{{ dia }}" value="{{ form.get('fin-' + dia, '') }}">
+            </div>
+            <span class="error" id="error-hora-{{ dia }}">{{ errores.get('horas-' + dia, '') }}</span>
+          </div>
+        {% endfor %}
+
+      </div>
+      <span class="error" id="error-dias">{{ errores.get('dias', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="archivo-actividad">Foto o video de la actividad</label>
+      <input type="file" name="archivo-actividad" id="archivo-actividad" accept="image/*,video/*">
+      <span class="error" id="error-archivo">{{ errores.get('archivo-actividad', '') }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="enlace-actividad">Enlace a contenido de la actividad (redes sociales, página web, etc.)</label>
+      <input type="url" name="enlace-actividad" id="enlace-actividad" value="{{ form.get('enlace-actividad', '') }}">
+      <span class="error" id="error-enlace">{{ errores.get('enlace-actividad', '') }}</span>
+    </div>
+
+  </section>
+
+  <button type="button" id="btn-enviar" class="btn-primario">Registrar</button>
+
+</form>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+{% endblock %}

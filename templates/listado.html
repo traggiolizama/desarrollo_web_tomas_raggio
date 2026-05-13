@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block titulo %}Listado de Miembros - Actividades DCC{% endblock %}
+
+{% block contenido %}
+<h2>Listado de Miembros</h2>
+
+<form method="GET" action="{{ url_for('listado') }}" id="form-filtros">
+  <section class="filtros">
+    <div class="form-group">
+      <label for="filtro-tipo">Filtrar por tipo de miembro</label>
+      <select id="filtro-tipo" name="filtro_tipo" onchange="this.form.submit()">
+        <option value="">Todos los tipos</option>
+        <option value="pregrado"    {% if filtro_tipo == 'pregrado'    %}selected{% endif %}>Pregrado</option>
+        <option value="postgrado"   {% if filtro_tipo == 'postgrado'   %}selected{% endif %}>Postgrado</option>
+        <option value="funcionario" {% if filtro_tipo == 'funcionario' %}selected{% endif %}>Funcionario</option>
+        <option value="academico"   {% if filtro_tipo == 'academico'   %}selected{% endif %}>Académico</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ordenar-por">Ordenar por</label>
+      <select id="ordenar-por" name="ordenar_por" onchange="this.form.submit()">
+        <option value="">Sin orden</option>
+        <option value="nombre"   {% if ordenar_por == 'nombre'   %}selected{% endif %}>Nombre</option>
+        <option value="apellido" {% if ordenar_por == 'apellido' %}selected{% endif %}>Apellido</option>
+        <option value="email"    {% if ordenar_por == 'email'    %}selected{% endif %}>Email</option>
+      </select>
+    </div>
+  </section>
+</form>
+
+<table id="tabla-miembros">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Tipo de miembro</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if miembros %}
+      {% for miembro in miembros %}
+        <tr class="fila-miembro" data-url='{{ url_for("detalle_miembro", id=miembro.id) }}'>
+          <td>{{ miembro.nombre }}</td>
+          <td>{{ miembro.apellido }}</td>
+          <td>{{ miembro.email }}</td>
+          <td>{{ miembro.tipo }}</td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="4">No hay miembros que coincidan con los filtros.</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<nav aria-label="Paginación" class="paginacion">
+  {% if pagina > 1 %}
+    <a href="{{ url_for('listado', pagina=pagina-1, filtro_tipo=filtro_tipo, ordenar_por=ordenar_por) }}" class="btn-primario">Anterior</a>
+  {% else %}
+    <button type="button" class="btn-primario" disabled>Anterior</button>
+  {% endif %}
+
+  <span id="indicador-pagina">Página {{ pagina }} de {{ total_pag }}</span>
+
+  {% if pagina < total_pag %}
+    <a href="{{ url_for('listado', pagina=pagina+1, filtro_tipo=filtro_tipo, ordenar_por=ordenar_por) }}" class="btn-primario">Siguiente</a>
+  {% else %}
+    <button type="button" class="btn-primario" disabled>Siguiente</button>
+  {% endif %}
+</nav>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.querySelectorAll(".fila-miembro").forEach(fila => {
+        fila.addEventListener("click", () => {
+            window.location = fila.dataset.url;
+        });
+    });
+</script>
+{% endblock %}
