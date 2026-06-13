@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block titulo %}Actividades DCC{% endblock %}
+
+{% block contenido %}
+    <h2>Bienvenido al sistema de actividades del DCC</h2>
+    <p>Gestión de actividades de miembros del Departamento de Ciencias de la Computación</p>
+
+    <nav>
+        <ul class="nav-list">
+            <li><a href="{{ url_for('registro') }}" class="btn-primario">Registro</a></li>
+            <li><a href="{{ url_for('listado') }}" class="btn-primario">Listado</a></li>
+        </ul>
+    </nav>
+
+    <section class="ultimos-miembros">
+        <h3>Últimos miembros registrados</h3>
+
+        {% if ultimos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Tipo de miembro</th>
+                        <th>Fecha de registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for miembro in ultimos %}
+                        <tr>
+                            <td>{{ miembro.nombre }}</td>
+                            <td>{{ miembro.apellido }}</td>
+                            <td>{{ miembro.email }}</td>
+                            <td>{{ miembro.tipo }}</td>
+                            <td>{{ miembro.fecha_registro.strftime('%d/%m/%Y %H:%M') }}</td>
+                        </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aún no hay miembros registrados.</p>
+        {% endif %}
+
+    </section>
+    
+{% endblock %}

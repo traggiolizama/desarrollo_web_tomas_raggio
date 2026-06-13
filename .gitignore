@@ -1,0 +1,6 @@
+venv/
+flask_app/venv/
+__pycache__/
+*.pyc
+.vscode/
+flask_app/static/uploads/

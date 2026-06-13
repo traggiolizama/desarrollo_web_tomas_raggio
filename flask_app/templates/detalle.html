@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ miembro.nombre }} {{ miembro.apellido }} - Actividades DCC{% endblock %}
+
+{% block contenido %}
+
+<article class="detalle-miembro">
+
+  <h2>{{ miembro.nombre }} {{ miembro.apellido }}</h2>
+
+  <section class="form-section">
+    <h3>Datos Personales</h3>
+    <dl class="datos-personales">
+      <dt>Email</dt>
+      <dd>{{ miembro.email }}</dd>
+
+      <dt>Teléfono</dt>
+      <dd>{{ miembro.telefono if miembro.telefono else '—' }}</dd>
+
+      <dt>Tipo de miembro</dt>
+      <dd>{{ miembro.tipo }}</dd>
+
+      <dt>Region</dt>
+      <dd>{{ miembro.comuna.region.nombre if miembro.comuna else 'Sin region' }}</dd>
+
+      <dt>Comuna</dt>
+      <dd>{{ miembro.comuna.nombre if miembro.comuna else 'Sin comuna' }}</dd>
+
+      <dt>Fecha de registro</dt>
+      <dd>{{ miembro.fecha_registro.strftime('%d/%m/%Y %H:%M') }}</dd>
+    </dl>
+  </section>
+
+  <section class="form-section">
+    <h3>Actividades</h3>
+
+    {% if actividades %}
+      {% for actividad in actividades %}
+        <article class="actividad-item">
+          <h4>{{ actividad.nombre }}</h4>
+          <dl>
+            <dt>Tipo</dt>
+            <dd>{{ actividad.tipo }}</dd>
+
+            <dt>Día</dt>
+            <dd>{{ actividad.dia }}</dd>
+
+            <dt>Horario</dt>
+            <dd>{{ actividad.hora_inicio }} — {{ actividad.hora_fin }}</dd>
+
+            {% if actividad.descripcion %}
+              <dt>Descripción</dt>
+              <dd>{{ actividad.descripcion }}</dd>
+            {% endif %}
+
+            {% if actividad.enlace %}
+              <dt>Enlace</dt>
+              <dd><a href="{{ actividad.enlace }}" target="_blank">{{ actividad.enlace }}</a></dd>
+            {% endif %}
+          </dl>
+
+          {% set fotos = fotos_por_actividad.get(actividad.id, []) %}
+          {% if fotos %}
+            <div class="fotos-actividad">
+              {% for foto in fotos %}
+                {% set extension = foto.nombre_archivo.rsplit('.', 1)[-1].lower() %}
+                {% if extension in ['mp4', 'mov'] %}
+                  <video controls width="300">
+                    <source src="{{ url_for('static', filename='uploads/' + foto.ruta_archivo) }}">
+                  </video>
+                {% else %}
+                  <img src="{{ url_for('static', filename='uploads/' + foto.ruta_archivo) }}"
+                       alt="{{ foto.nombre_archivo }}" width="300">
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <section class="comentarios-actividad"
+                   data-comentarios-url="{{ url_for('comentarios_actividad', actividad_id=actividad.id) }}">
+            <h5>Comentarios</h5>
+
+            <div class="comentarios-lista">
+              <p>Cargando comentarios...</p>
+            </div>
+
+            <form class="form-comentario" novalidate>
+              <div class="form-group">
+                <label for="comentario-nombre-{{ actividad.id }}">Nombre de comentarista</label>
+                <input type="text"
+                       id="comentario-nombre-{{ actividad.id }}"
+                       name="nombre"
+                       minlength="3"
+                       maxlength="80"
+                       required>
+                <span class="error" data-error="nombre"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="comentario-texto-{{ actividad.id }}">Texto del comentario</label>
+                <textarea id="comentario-texto-{{ actividad.id }}"
+                          name="texto"
+                          rows="4"
+                          cols="50"
+                          minlength="5"
+                          required></textarea>
+                <span class="error" data-error="texto"></span>
+              </div>
+
+              <span class="error" data-error="general"></span>
+              <button type="submit" class="btn-primario">Agregar comentario</button>
+            </form>
+          </section>
+
+        </article>
+      {% endfor %}
+    {% else %}
+      <p>Este miembro no tiene actividades registradas.</p>
+    {% endif %}
+
+  </section>
+
+  <a href="{{ url_for('listado') }}" class="btn-primario">Volver al listado</a>
+
+</article>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/comentarios.js') }}"></script>
+{% endblock %}

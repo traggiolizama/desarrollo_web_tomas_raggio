@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}Estadísticas - Actividades DCC{% endblock %}
+
+{% block contenido %}
+<h2>Estadísticas</h2>
+
+<section class="form-section">
+  <h3>Miembros registrados por día</h3>
+  <div id="grafico-miembros-dia"></div>
+  <p class="mensaje-grafico" id="mensaje-miembros-dia">Cargando datos...</p>
+</section>
+
+<section class="form-section">
+  <h3>Actividades por tipo</h3>
+  <div id="grafico-actividades-tipo"></div>
+  <p class="mensaje-grafico" id="mensaje-actividades-tipo">Cargando datos...</p>
+</section>
+
+<section class="form-section">
+  <h3>Actividades por comuna</h3>
+  <div id="grafico-actividades-comuna"></div>
+  <p class="mensaje-grafico" id="mensaje-actividades-comuna">Cargando datos...</p>
+</section>
+
+<a href="{{ url_for('portada') }}" class="btn-primario">Volver a la portada</a>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
+{% endblock %}
