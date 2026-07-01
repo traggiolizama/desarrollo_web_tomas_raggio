@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de actividades</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+    <script src="/js/buscador.js" defer></script>
+</head>
+<body>
+<main class="contenedor">
+    <header class="encabezado">
+        <h1>Buscador de actividades</h1>
+    </header>
+
+    <form class="buscador" id="form-busqueda">
+        <label for="texto-busqueda">Buscar por actividad, descripcion o comuna</label>
+        <input
+                id="texto-busqueda"
+                name="q"
+                type="text"
+                minlength="3"
+                autocomplete="off"
+                placeholder="Escribe al menos 3 caracteres">
+    </form>
+
+    <p class="mensaje" id="mensaje" role="status">Escribe al menos 3 caracteres para buscar.</p>
+
+    <section class="resultados" aria-live="polite">
+        <table id="tabla-resultados" class="tabla oculto">
+            <thead>
+            <tr>
+                <th>Miembro</th>
+                <th>Dia</th>
+                <th>Tipo</th>
+                <th>Comuna</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Nota</th>
+                <th>Evaluaciones</th>
+                <th>Evaluar</th>
+            </tr>
+            </thead>
+            <tbody id="cuerpo-resultados"></tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

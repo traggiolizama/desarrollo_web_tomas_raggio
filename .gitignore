@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .vscode/
 flask_app/static/uploads/
+spring_app/**/target/
+spring_app/**/.idea/
+*.zip
